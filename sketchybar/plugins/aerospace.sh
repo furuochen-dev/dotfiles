@@ -5,9 +5,9 @@
 if [ -z "$FOCUSED_WORKSPACE" ]; then
     :
 elif [ "$1" = "$FOCUSED_WORKSPACE" ]; then
-    sketchybar --set "$NAME" background.color=0xfff4dbd6 icon.color=0xff000000 label.color=0xff1e1e2e
+    sketchybar --set "$NAME" icon.color=0xfffab387 label.color=0xff1e1e2e label.background.color=0xfff5e0dc 
 else
-    sketchybar --set "$NAME" background.color=0xff585b70 icon.color=0xffffffff label.color=0xffffffff
+    sketchybar --set "$NAME" icon.color=0xffffffff label.color=0xffffffff label.background.color=0xff45475a 
 fi
 
 all=$(aerospace list-workspaces --all)
@@ -18,6 +18,8 @@ else
     sketchybar --set $NAME drawing=off
 fi
 
+source "$HOME/.config/sketchybar/plugins/icon_map.sh"
+
 app_icon() {
   case "$1" in
     Ghostty|Terminal|iTerm2|Alacritty|kitty|WezTerm)  echo "" ;;
@@ -25,12 +27,14 @@ app_icon() {
     "Visual Studio Code"|VSCodium|Cursor)             echo "󰨞" ;;
     "Google Chrome")                                  echo "" ;;
     Safari|Zen)                                       echo "󰖟" ;;
+    Telegram|"Telegram Desktop")                      echo "" ;;
     Discord)                                          echo "󰙯" ;;
     Finder)                                           echo "󰉋" ;;
     Mail)                                             echo "󰇮" ;;
     Calendar)                                         echo "󰃭" ;;
     Zoom)                                             echo "󰊾" ;;
     WeChat)                                           echo "" ;;
+    QQ)                                               echo "" ;;
     *)                                                echo "󰘔" ;;
   esac
 }
@@ -86,9 +90,9 @@ icons=$(
     icon=$(app_icon "$app")
 
     if [ "$n" -gt 1 ]; then
-      printf "%s%s " "$icon" "$(to_superscript "$n")"
+      printf "%s%s" "$icon" "$(to_superscript "$n")"
     else
-      printf "%s " "$icon"
+      printf "%s" "$icon"
     fi
   done
 )
@@ -98,7 +102,7 @@ icons="${icons% }"
 sketchybar --set $NAME icon="$1" label="$icons"
 
 if [ -z "$icons" ]; then
-    # icons 为空
-    sketchybar --set "$NAME" label.drawing=off icon.padding_right=10
+    sketchybar --set "$NAME" label.drawing=off icon.padding_right=4
+else
+    sketchybar --set "$NAME" label.drawing=on icon.padding_right=4
 fi
-
