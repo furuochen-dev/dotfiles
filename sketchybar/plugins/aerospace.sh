@@ -92,7 +92,7 @@ icons=$(
     if [ "$n" -gt 1 ]; then
       printf "%s%s" "$icon" "$(to_superscript "$n")"
     else
-      printf "%s" "$icon"
+      printf "%s " "$icon"
     fi
   done
 )
