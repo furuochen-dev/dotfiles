@@ -102,7 +102,7 @@ icons="${icons% }"
 sketchybar --set $NAME icon="$1" label="$icons"
 
 if [ -z "$icons" ]; then
-    sketchybar --set "$NAME" label.drawing=off icon.padding_right=4
+    sketchybar --set "$NAME" label.drawing=off icon.padding_right=7
 else
     sketchybar --set "$NAME" label.drawing=on icon.padding_right=4
 fi
