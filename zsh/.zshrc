@@ -8,10 +8,17 @@ function y() {
 export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
 
 alias vi="nvim"
+alias g="git"
+alias gc="git commit"
+alias gp="git push"
 
 eval "$(starship init zsh)"
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
+export CLICOLOR=1
+export LSCOLORS=gxFxCxDxBxegedabagaced
+alias ls='ls -G'
+alias ll='ls -laFG'
 
 # better up down arrow
 autoload -U up-line-or-beginning-search

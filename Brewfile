@@ -14,6 +14,8 @@ brew "gh"
 brew "gradle"
 # Rime Input Method Engine
 brew "librime"
+# Clone of ls with colorful output, file type icons, and more
+brew "lsd"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Open-source, cross-platform JavaScript runtime environment
@@ -30,10 +32,18 @@ brew "tcl-tk"
 brew "python-tk@3.14"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Cross-shell prompt for astronauts
+brew "starship"
 # Markup-based typesetting system
 brew "typst"
 # Blazing fast terminal file manager written in Rust, based on async I/O
 brew "yazi"
+# Tracks most-used directories to make cd smarter
+brew "z"
+# Fish-like fast/unobtrusive autosuggestions for zsh
+brew "zsh-autosuggestions"
+# Fish shell like syntax highlighting for zsh
+brew "zsh-syntax-highlighting"
 # Custom macOS statusbar with shell plugin, interaction and graph support
 brew "felixkratz/formulae/sketchybar"
 # Collection of apps and services for photography, design, video, web, and UX
@@ -59,6 +69,8 @@ cask "kitty"
 cask "modrinth"
 # Open-source music notation software
 cask "musescore"
+# VPN client focusing on security
+cask "protonvpn"
 # Instant messaging tool
 cask "qq"
 # 3D CAD software
