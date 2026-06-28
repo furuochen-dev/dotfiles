@@ -32,9 +32,9 @@ fi
 cd ~/.config
 
 
-#
+# Brew install 
 
-brew bundle
+brew bundle --no-upgrade
 
 # zshrc
 target="$HOME/.config/zsh/.zshrc"

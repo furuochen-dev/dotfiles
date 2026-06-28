@@ -1,7 +1,7 @@
 tap "dzirtusss/tap"
 tap "felixkratz/formulae", "https://github.com/FelixKratz/homebrew-formulae", trusted: true
 tap "laishulu/homebrew"
-tap "nikitabobko/tap"
+tap "nikitabobko/tap", trusted: true
 # Lean Theorem Prover installer and version manager
 brew "elan-init"
 # Like neofetch, but much faster because written mostly in C
