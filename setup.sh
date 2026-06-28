@@ -36,36 +36,17 @@ cd ~/.config
 
 brew bundle --no-upgrade
 
+
 # zshrc
-target="$HOME/.config/zsh/.zshrc"
-link="$HOME/.zshrc"
 
-if [ -L "$link" ] && [ "$(readlink "$link")" = "$target" ]; then
-    # already linked correctly
-    :
+snippet='source "$HOME/.config/zsh/.zshrc"'
+file="$HOME/.zshrc"
 
-elif [ -e "$link" ]; then
-    echo "~/.zshrc already exists:"
-    echo
-    cat "$link"
-    echo
-    read -p "Replace it with a symlink to $target? [y/N] " ans
+touch "$file"
 
-    case "$ans" in
-        [Yy]*)
-            rm "$link"
-            ln -s "$target" "$link"
-            ;;
-        *)
-            echo "Aborted."
-            exit 1
-            ;;
-    esac
-
-else
-    ln -s "$target" "$link"
+if ! grep -Fxq "$snippet" "$file"; then
+    printf '\n%s\n' "$snippet" >> "$file"
 fi
-
 
 
 defaults write com.apple.dock expose-group-apps -bool true && killall Dock
