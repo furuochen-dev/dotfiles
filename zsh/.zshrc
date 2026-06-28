@@ -14,6 +14,7 @@ alias gp="git push"
 
 eval "$(starship init zsh)"
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+. $HOMEBREW_PREFIX/etc/profile.d/z.sh
 
 export CLICOLOR=1
 export LSCOLORS=gxFxCxDxBxegedabagaced
