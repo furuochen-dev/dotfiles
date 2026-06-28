@@ -9,7 +9,7 @@ for sid in A Q Z W S X E D C R F V; do
         label.padding_right=6\
         label.font="JetBrainsMono Nerd Font:Bold:16.0" \
         label.background.drawing=on \
-        label.background.color=0xff45475a \
+        label.background.color=0x5045475a \
         label.background.height=22\
         label.background.corner_radius=5\
         icon.color=0xffffffff label.color=0xffffffff\
@@ -25,11 +25,11 @@ for sid in A Q Z W S X E D C R F V; do
 done
 
 sketchybar --add bracket spaces '/space\..*/'               \
-           --set         spaces background.color=0xff313244\
+           --set         spaces background.color=0x50313244\
                                 background.corner_radius=5  \
                                 background.height=26 \
                                 background.border_width=2 \
-                                background.border_color=0xff45475a
+                                background.border_color=0x5045475a
 
 
 

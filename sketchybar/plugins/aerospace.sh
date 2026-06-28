@@ -5,9 +5,9 @@
 if [ -z "$FOCUSED_WORKSPACE" ]; then
     :
 elif [ "$1" = "$FOCUSED_WORKSPACE" ]; then
-    sketchybar --set "$NAME" icon.color=0xfffab387 label.color=0xff1e1e2e label.background.color=0xfff5e0dc 
+    sketchybar --set "$NAME" icon.color=0xfffab387 label.color=0xff1e1e2e label.background.color=0xe0f5e0dc 
 else
-    sketchybar --set "$NAME" icon.color=0xffffffff label.color=0xffffffff label.background.color=0xff45475a 
+    sketchybar --set "$NAME" icon.color=0xffffffff label.color=0xffffffff label.background.color=0x5045475a 
 fi
 
 all=$(aerospace list-workspaces --all)
