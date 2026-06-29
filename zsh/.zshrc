@@ -16,10 +16,10 @@ eval "$(starship init zsh)"
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 . $HOMEBREW_PREFIX/etc/profile.d/z.sh
 
-export CLICOLOR=1
-export LSCOLORS=gxFxCxDxBxegedabagaced
-alias ls='ls -G'
-alias ll='ls -laFG'
+alias ls='lsd --group-directories-first'
+alias ll='lsd -l --group-directories-first'
+alias la='lsd -la --group-directories-first'
+alias tree='lsd -l --group-directories-first --tree --depth=2'
 
 # better up down arrow
 autoload -U up-line-or-beginning-search
