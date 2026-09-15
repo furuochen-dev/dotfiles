@@ -1,26 +1,30 @@
 set -euo pipefail
 
-# Install brew
-
-which -s brew
-if [[ $? != 0 ]] ; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-else
-    brew update
+# Install Nix (Lix installer: has an uninstaller, recommended by nix-darwin)
+if ! command -v nix >/dev/null 2>&1; then
+    curl -sSf -L https://install.lix.systems/lix | sh -s -- install
+    # New PATH for this script if the installer dropped a profile script
+    if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
+        # shellcheck disable=SC1091
+        . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+    fi
 fi
 
+# Homebrew is still used for GUI casks (QQ, Cursor, AeroSpace, ...)
+if ! command -v brew >/dev/null 2>&1; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    if [[ -x /opt/homebrew/bin/brew ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+fi
 
-# Clone dotfiles repo
+DOTFILES_REPO="https://github.com/furuochen-dev/dotfiles.git"
 
-DOTFILES_REPO="https://github.com/RuochenFu21/dotfiles.git"
-
-if [ ! -e ~/.config ]; then
+if [[ ! -e ~/.config ]]; then
     git clone "$DOTFILES_REPO" ~/.config
-
-elif [ -d ~/.config/.git ]; then
+elif [[ -d ~/.config/.git ]]; then
     origin=$(git -C ~/.config remote get-url origin 2>/dev/null)
-
-    if [[ "$origin" == *RuochenFu21/dotfiles* ]]; then
+    if [[ "$origin" == *furuochen-dev/dotfiles* ]]; then
         git -C ~/.config pull
     else
         echo "Error: ~/.config is a different git repo ($origin)"
@@ -31,20 +35,5 @@ else
     exit 1
 fi
 
-cd ~/.config
-
-bash .brew-update.sh
-
-# zshrc
-
-snippet='source "$HOME/.config/zsh/.zshrc"'
-file="$HOME/.zshrc"
-
-touch "$file"
-
-if ! grep -Fxq "$snippet" "$file"; then
-    printf '\n%s\n' "$snippet" >> "$file"
-fi
-
-
-defaults write com.apple.dock expose-group-apps -bool true && killall Dock
+echo "Applying nix-darwin flake (~/.config#laptop)..."
+sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake "$HOME/.config#laptop"

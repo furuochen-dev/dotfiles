@@ -1,9 +1,9 @@
 Install:
 ```
-/bin/bash -c "$(curl -fsSL raw.githubusercontent.com/RuochenFu21/dotfiles/refs/heads/main/setup.sh)"
+/bin/bash -c "$(curl -fsSL raw.githubusercontent.com/furuochen-dev/dotfiles/refs/heads/main/setup.sh)"
 ```
 
-Pull:
+Update:
 ```
-git -C ~/.config pull
+git -C ~/.config pull && sudo darwin-rebuild switch --flake ~/.config#laptop
 ```
