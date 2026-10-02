@@ -11,7 +11,10 @@
 
   home.packages = import ./packages.nix { inherit pkgs; };
 
-  home.sessionVariables.EDITOR = "nvim";
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    ZSH_VI_MODE = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+  };
 
   programs.zoxide.enable = true;
 
@@ -32,6 +35,7 @@
       drs = "sudo darwin-rebuild switch --flake ~/.config#laptop";
     };
     initContent = lib.mkAfter ''
+      export ZSH_VI_MODE="${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
       source "$HOME/.config/zsh/.zshrc"
     '';
   };
