@@ -28,6 +28,7 @@
       "glyphs"
       "google-chrome"
       "intellij-idea"
+      "kindavim"
       "modrinth"
       "musescore"
       "obs"
@@ -39,6 +40,7 @@
       "telegram"
       "vlc"
       "wifiman"
+      "wpsoffice"
       "wireshark-app"
       "zen"
     ];

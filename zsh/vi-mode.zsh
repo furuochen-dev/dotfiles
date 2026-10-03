@@ -1,10 +1,19 @@
 # Hooks for jeffreytse/zsh-vi-mode. Sourced before the plugin.
 export STARSHIP_VI_MODE=I
 
+function viins-forward-or-accept-suggestion() {
+	if [[ -n ${POSTDISPLAY:-} && $CURSOR -eq ${#BUFFER} ]]; then
+		zle autosuggest-accept
+	else
+		zle forward-char
+	fi
+}
+
 function zvm_after_init() {
+	zle -N viins-forward-or-accept-suggestion
 	zvm_bindkey viins "^[[A" up-line-or-beginning-search
 	zvm_bindkey viins "^[[B" down-line-or-beginning-search
-	zvm_bindkey viins "^[[C" autosuggest-accept
+	zvm_bindkey viins "^[[C" viins-forward-or-accept-suggestion
 }
 
 function zvm_after_lazy_keybindings() {
