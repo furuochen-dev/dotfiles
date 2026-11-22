@@ -7,7 +7,9 @@ config-version = 2
 
 # You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = []
+after-startup-command = [
+    'exec-and-forget borders whitelist=kitty,.kitty-wrapped style=round width=4.0 hidpi=on active_color=0xffb4befe inactive_color=0xff6c7086',
+]
 # Start AeroSpace at login
 start-at-login = true
 
@@ -58,7 +60,7 @@ on-mode-changed = []
     preset = 'qwerty'
 
 [exec.env-vars]
-    PATH = '/usr/local/bin/:${PATH}'
+    PATH = '/usr/local/bin/:/etc/profiles/per-user/${USER}/bin:${PATH}'
 
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:

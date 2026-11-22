@@ -24,5 +24,13 @@ with pkgs;
   darktable
   zoxide
   kitty
+  (jankyborders.overrideAttrs (old: {
+    postPatch = (old.postPatch or "") + ''
+      # Nix-wrapped Kitty reports zero corner radii on macOS 27.
+      substituteInPlace src/windows.c \
+        --replace-fail 'radius = radius > 0 ? radius : 9;' \
+                       'radius = radius > 0 ? radius : (strcmp(pid_name_buffer, ".kitty-wrapped") == 0 || strcmp(pid_name_buffer, "kitty") == 0 ? 16 : 9);'
+    '';
+  }))
   iina
 ]
