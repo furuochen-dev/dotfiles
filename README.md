@@ -1,9 +1,15 @@
-Install:
-```
-/bin/bash -c "$(curl -fsSL raw.githubusercontent.com/furuochen-dev/dotfiles/refs/heads/main/setup.sh)"
+# Install
+
+## Mac laptop
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/furuochen-dev/dotfiles/refs/heads/main/setup.sh)" setup.sh laptop
 ```
 
-Update:
+## Mac server
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/furuochen-dev/dotfiles/refs/heads/main/setup.sh)" setup.sh server
 ```
-git -C ~/.config pull && sudo darwin-rebuild switch --flake ~/.config#laptop
-```
+
+Run the same command again on either machine to update its configuration.

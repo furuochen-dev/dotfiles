@@ -18,8 +18,8 @@
     }:
     let
       username = "furuochen";
-      darwinSystem = nix-darwin.lib.darwinSystem {
-        specialArgs = { inherit inputs self username; };
+      darwinSystem = desktop: nix-darwin.lib.darwinSystem {
+        specialArgs = { inherit inputs self username desktop; };
         modules = [
           ./nix/darwin.nix
           home-manager.darwinModules.home-manager
@@ -27,7 +27,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "bak";
-            home-manager.extraSpecialArgs = { inherit inputs username; };
+            home-manager.extraSpecialArgs = { inherit inputs username desktop; };
             home-manager.users.${username} = import ./nix/home.nix;
           }
         ];
@@ -35,8 +35,9 @@
     in
     {
       # Stable name for new machines: darwin-rebuild switch --flake ~/.config#laptop
-      darwinConfigurations.laptop = darwinSystem;
+      darwinConfigurations.laptop = darwinSystem true;
       # Current hostname, so `darwin-rebuild switch --flake ~/.config` also works here.
-      darwinConfigurations."Rays-Laptop" = darwinSystem;
+      darwinConfigurations."Rays-Laptop" = darwinSystem true;
+      darwinConfigurations.server = darwinSystem false;
     };
 }

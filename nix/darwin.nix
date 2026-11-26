@@ -1,11 +1,13 @@
 {
+  desktop,
+  lib,
   pkgs,
   self,
   username,
   ...
 }:
 {
-  imports = [ ./homebrew.nix ];
+  imports = lib.optionals desktop [ ./homebrew.nix ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config.allowUnfree = true;
@@ -27,19 +29,19 @@
   programs.zsh.enable = true;
 
   # Config stays in ~/.config/sketchybar; turn this on to bring the bar back.
-  services.sketchybar.enable = false;
+  services.sketchybar.enable = lib.mkIf desktop false;
 
   # Homebrew only needs to be on PATH for macism (not in nixpkgs).
-  environment.systemPath = [
+  environment.systemPath = lib.optionals desktop [
     "/opt/homebrew/bin"
     "/opt/homebrew/sbin"
   ];
 
-  fonts.packages = [
+  fonts.packages = lib.optionals desktop [
     pkgs.nerd-fonts.jetbrains-mono
   ];
 
-  system.defaults.dock.expose-group-apps = true;
+  system.defaults.dock.expose-group-apps = lib.mkIf desktop true;
 
   environment.systemPackages = with pkgs; [
     nixfmt

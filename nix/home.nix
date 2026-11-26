@@ -1,4 +1,5 @@
 {
+  desktop,
   lib,
   pkgs,
   username,
@@ -9,7 +10,7 @@
   home.homeDirectory = "/Users/${username}";
   home.stateVersion = "26.05";
 
-  home.packages = import ./packages.nix { inherit pkgs; };
+  home.packages = import ./packages.nix { inherit desktop pkgs; };
 
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -32,7 +33,7 @@
       ll = "lsd -l --group-directories-first";
       la = "lsd -la --group-directories-first";
       tree = "lsd -l --group-directories-first --tree --depth=2";
-      drs = "sudo darwin-rebuild switch --flake ~/.config#laptop";
+      drs = "sudo darwin-rebuild switch --flake ~/.config#${if desktop then "laptop" else "server"}";
     };
     initContent = lib.mkAfter ''
       export ZSH_VI_MODE="${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
