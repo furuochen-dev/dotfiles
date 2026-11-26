@@ -1,4 +1,5 @@
 {
+  config,
   desktop,
   lib,
   pkgs,
@@ -11,6 +12,9 @@
   home.stateVersion = "26.05";
 
   home.packages = import ./packages.nix { inherit desktop pkgs; };
+
+  # Prebuilt tools (e.g. rime_ls wrapper + binary) live here.
+  home.sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
 
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -36,9 +40,14 @@
       drs = "sudo darwin-rebuild switch --flake ~/.config#${if desktop then "laptop" else "server"}";
       dru = "git -C ~/.config pull --ff-only && sudo -H darwin-rebuild switch --flake ~/.config#${if desktop then "laptop" else "server"}";
     };
-    initContent = lib.mkAfter ''
+    initContent = lib.mkAfter ((lib.optionalString (!desktop) ''
+      # SSH forwards TERM but may omit Kitty's truecolor capability.
+      if [[ "$TERM" == xterm-kitty && -z "${"$"}{COLORTERM:-}" ]]; then
+        export COLORTERM=truecolor
+      fi
+    '') + ''
       export ZSH_VI_MODE="${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
       source "$HOME/.config/zsh/.zshrc"
-    '';
+    '');
   };
 }

@@ -25,3 +25,19 @@ keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer
 vim.keymap.set('n', '<leader>d', function()
   vim.diagnostic.open_float(nil, { scope = 'cursor' }) -- Opens float for diagnostic under cursor
 end, { desc = 'Open diagnostic float' })
+
+-- Softwrap only: j/k (and counts like 3j) move by screen line; otherwise normal lines.
+-- Do NOT prepend v:count — Neovim already applies the typed count to the RHS.
+-- (Returning "3gj" would double the count and jump too far.)
+-- expr + noremap: returned "j"/"k" are not remapped, so no recursion when wrap is off.
+local function move_by_line(key, wrapped)
+  return function()
+    if vim.wo.wrap then
+      return wrapped
+    end
+    return key
+  end
+end
+
+keymap.set({ "n", "x" }, "j", move_by_line("j", "gj"), { expr = true, silent = true })
+keymap.set({ "n", "x" }, "k", move_by_line("k", "gk"), { expr = true, silent = true })

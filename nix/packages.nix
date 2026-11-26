@@ -36,4 +36,29 @@ with pkgs;
     '';
   }))
   iina
-] ++ lib.optionals (!desktop) [ codex ]
+]
+++ lib.optionals (!desktop) [
+  (stdenvNoCC.mkDerivation (finalAttrs: {
+    pname = "codex";
+    version = "0.172.0";
+
+    src = fetchurl {
+      url = "https://github.com/openai/codex/releases/download/rust-v${finalAttrs.version}/codex-package-aarch64-apple-darwin.tar.zst";
+      hash = "sha256-R1q8U8NJ6oAt3Zyw2xN2vvewVTtigsguRC56oJc82aU=";
+    };
+
+    nativeBuildInputs = [ zstd ];
+    dontUnpack = true;
+    dontFixup = true;
+
+    installPhase = ''
+      runHook preInstall
+      mkdir -p "$out"
+      zstd -dc "$src" | tar -xf - -C "$out"
+      test -x "$out/bin/codex"
+      runHook postInstall
+    '';
+
+    meta.mainProgram = "codex";
+  }))
+]
