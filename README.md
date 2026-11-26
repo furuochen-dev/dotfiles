@@ -13,3 +13,5 @@
 ```
 
 Run the same command again on either machine to update its configuration.
+
+Setup uses Lix's default of enabling flakes and may prompt for an administrator password.

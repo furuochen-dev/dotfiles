@@ -7,12 +7,18 @@ case "$target" in
 esac
 
 # Install Nix (Lix installer: has an uninstaller, recommended by nix-darwin)
+if [[ -x /nix/var/nix/profiles/default/bin/nix ]]; then
+    export PATH="/nix/var/nix/profiles/default/bin:$PATH"
+fi
 if ! command -v nix >/dev/null 2>&1; then
-    curl -sSf -L https://install.lix.systems/lix | sh -s -- install
+    curl -sSf -L https://install.lix.systems/lix | sh -s -- install --no-confirm
     # New PATH for this script if the installer dropped a profile script
     if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
+        # Lix's profile script can read unset shell-specific variables.
+        set +u
         # shellcheck disable=SC1091
         . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+        set -u
     fi
 fi
 
