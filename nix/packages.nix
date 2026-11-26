@@ -36,4 +36,4 @@ with pkgs;
     '';
   }))
   iina
-]
+] ++ lib.optionals (!desktop) [ codex ]

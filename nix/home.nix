@@ -34,6 +34,7 @@
       la = "lsd -la --group-directories-first";
       tree = "lsd -l --group-directories-first --tree --depth=2";
       drs = "sudo darwin-rebuild switch --flake ~/.config#${if desktop then "laptop" else "server"}";
+      dru = "git -C ~/.config pull --ff-only && sudo -H darwin-rebuild switch --flake ~/.config#${if desktop then "laptop" else "server"}";
     };
     initContent = lib.mkAfter ''
       export ZSH_VI_MODE="${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"

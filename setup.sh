@@ -48,5 +48,5 @@ else
 fi
 
 echo "Applying nix-darwin flake (~/.config#$target)..."
-sudo "$(command -v nix)" --extra-experimental-features "nix-command flakes" \
+sudo -H "$(command -v nix)" --extra-experimental-features "nix-command flakes" \
     run nix-darwin/master#darwin-rebuild -- switch --flake "$HOME/.config#$target"
