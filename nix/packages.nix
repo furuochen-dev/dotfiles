@@ -20,7 +20,7 @@ with pkgs;
   curl
   fastfetch
   yazi
-  lnav
+  less
   coreutils
   iperf3
   ffmpeg
