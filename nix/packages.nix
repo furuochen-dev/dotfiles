@@ -2,7 +2,15 @@
 with pkgs;
 [
   # Search: https://search.nixos.org/packages
-  neovim
+  (neovim.override {
+    # jieba-lua's word motions require the native utf8.next function.
+    wrapperArgs = [
+      "--prefix"
+      "LUA_CPATH"
+      ";"
+      "${neovim-unwrapped.lua.pkgs.luautf8}/lib/lua/${neovim-unwrapped.lua.luaversion}/?.so;;"
+    ];
+  })
   starship
   lsd
   fd
@@ -12,6 +20,7 @@ with pkgs;
   curl
   fastfetch
   yazi
+  lnav
   coreutils
   iperf3
   ffmpeg

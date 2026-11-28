@@ -6,3 +6,9 @@ image_bound = [ 65535, 65535 ]
 max_width = 10000
 max_height = 10000
 # ... other settings
+
+[opener]
+log = [{ run = "lnav -- %s", block = true, desc = "View logs in lnav", for = "unix" }]
+
+[open]
+prepend_rules = [{ url = "*.log", use = "log" }]
